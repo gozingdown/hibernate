@@ -17,13 +17,21 @@ public class HibernateTest {
 		user.setAddress("First User's address");
 		user.setJoinedDate(new Date());
 		user.setDescription("Description of the user goes here");
-		
+
+		// SessionFactory is only created once per application (expensive)
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		session.save(user);
 		session.getTransaction().commit();
-		
-		
+		session.close();// normally in a finally block
+
+		user = null;
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+		user = (UserDetails) session.get(UserDetails.class, 1);
+		System.out.println("User Name retrieved is " + user.getUserName());
+		session.getTransaction().commit();
+		session.close();
 	}
 }
