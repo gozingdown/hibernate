@@ -22,6 +22,7 @@ import javax.persistence.Transient;
 								// name.
 public class UserDetails {
 
+	//use @EmbeddedId to replace all these annotations when you want to have an embedded object as the the PK.
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "USER_ID")
