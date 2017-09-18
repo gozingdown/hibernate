@@ -18,14 +18,20 @@ public class HibernateTest {
 		user.setDescription("Description of the user goes here");
 	
 		Address homeAddress = new Address();
-		homeAddress.setStreet("Street Name");
-		homeAddress.setCity("City Name");
-		user.setHomeAddress(homeAddress);
+		homeAddress.setStreet("First Street Name");
+		homeAddress.setCity("First City Name");
+		homeAddress.setState("First State");
+		homeAddress.setPincode("100001");
 		
 		Address officeAddress = new Address();
 		officeAddress.setStreet("Second Street Name");
 		officeAddress.setCity("Second City Name");
-		user.setOfficeAddress(officeAddress);
+		officeAddress.setState("Second State");
+		officeAddress.setPincode("200002");
+		
+		user.getListOfAddresses().add(homeAddress);
+		user.getListOfAddresses().add(officeAddress);
+		
 		
 		// SessionFactory is only created once per application (expensive)
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
