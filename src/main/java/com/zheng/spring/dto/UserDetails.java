@@ -10,6 +10,7 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -45,11 +46,11 @@ public class UserDetails {
 //	private Set<Address> listOfAddresses = new HashSet<>();
 	// set will not support index (surrogate key), so below we'll use ArrayList
 	
-	@ElementCollection // mark the collection object to be persisted by Hibernate as seperate table,
+	@ElementCollection(fetch=FetchType.EAGER) // mark the collection object to be persisted by Hibernate as seperate table,
 	// otherwise there will be exception for java.util.Set (could not determine type for it)
 	@JoinTable(name = "USER_ADDRESS", joinColumns = @JoinColumn(name = "USER_ID"))
-	@GenericGenerator(name="hilo-gen",strategy="hilo")
-	@CollectionId(columns = { @Column(name="ADDRESS_ID") }, generator = "hilo-gen", type = @Type(type="long")) // this feature is not provided by JPA, specific to Hibernate
+//	@GenericGenerator(name="hilo-gen",strategy="hilo")
+//	@CollectionId(columns = { @Column(name="ADDRESS_ID") }, generator = "hilo-gen", type = @Type(type="long")) // this feature is not provided by JPA, specific to Hibernate
 	private Collection<Address> listOfAddresses = new ArrayList<>();
 
 	public Collection<Address> getListOfAddresses() {
