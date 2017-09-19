@@ -18,7 +18,7 @@ import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 @Entity
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy=InheritanceType.JOINED)
 public class Vehicle {
 	@Id
 	@GeneratedValue// the generated value of the parent class is also inherited by subclasses.
