@@ -1,5 +1,9 @@
 package com.zheng.spring.dto;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Set;
+
 // we are importing from javax.persistence because we are compliant with JPA standards
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -20,16 +26,21 @@ public class UserDetails {
 	private int userId;
 	@Column(name = "USER_NAME")
 	private String userName;
-	@OneToOne
-	@JoinColumn(name="VEHICLE_ID")
-	private Vehicle vehicle;
 	
-	public Vehicle getVehicle() {
-		return vehicle;
+	@OneToMany
+	@JoinTable(
+		name="USER_VEHICLE",
+		joinColumns=@JoinColumn(name="USER_ID"),
+		inverseJoinColumns=@JoinColumn(name="VEHICLE_ID")
+	)
+	private Collection<Vehicle> vehicles = new ArrayList<>();
+
+	public Collection<Vehicle> getVehicles() {
+		return vehicles;
 	}
 
-	public void setVehicle(Vehicle vehicle) {
-		this.vehicle = vehicle;
+	public void setVehicle(Collection<Vehicle> vehicles) {
+		this.vehicles = vehicles;
 	}
 
 	public int getUserId() {
