@@ -19,16 +19,13 @@ public class HibernateTest {
 		vehicle1.setVehicleName("Car");
 		Vehicle vehicle2 = new Vehicle();
 		vehicle2.setVehicleName("Jeep");
-		vehicle1.setUser(user);
 		user.getVehicles().add(vehicle1);
 		user.getVehicles().add(vehicle2);
 		// SessionFactory is only created once per application (expensive)
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		session.save(user);
-		session.save(vehicle1);
-		session.save(vehicle2);
+		session.persist(user);//there's no need to save the vehicles now
 		session.getTransaction().commit();
 		session.close();// normally in a finally block
 

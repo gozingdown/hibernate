@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 // we are importing from javax.persistence because we are compliant with JPA standards
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,7 +28,7 @@ public class UserDetails {
 	private int userId;
 	@Column(name = "USER_NAME")
 	private String userName;
-	@OneToMany(mappedBy="user")
+	@OneToMany(cascade=CascadeType.PERSIST)
 	private Collection<Vehicle> vehicles = new ArrayList<>();
 
 	public Collection<Vehicle> getVehicles() {

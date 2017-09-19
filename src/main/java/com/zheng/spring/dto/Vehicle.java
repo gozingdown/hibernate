@@ -19,17 +19,7 @@ public class Vehicle {
 	@GeneratedValue
 	private int vehicleId;
 	private String vehicleName;
-	@ManyToOne
-	@NotFound(action=NotFoundAction.IGNORE) //if user is not found, ignore it, not throw an exception
-	private UserDetails user;
-	
 
-	public UserDetails getUser() {
-		return user;
-	}
-	public void setUser(UserDetails user) {
-		this.user = user;
-	}
 	public int getVehicleId() {
 		return vehicleId;
 	}
