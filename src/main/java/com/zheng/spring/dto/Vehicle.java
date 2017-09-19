@@ -10,22 +10,25 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 @Entity
 public class Vehicle {
 	@Id
 	@GeneratedValue
 	private int vehicleId;
 	private String vehicleName;
-	@ManyToMany(mappedBy="vehicles") // if you don't have mappedBy, two mapping tables will be created. Hibernate also creates one for Vehicle.
-									// and you have to use the member variable name here, not the joinColumn name
-	private Collection<UserDetails> userList = new ArrayList<>();
+	@ManyToOne
+	@NotFound(action=NotFoundAction.IGNORE) //if user is not found, ignore it, not throw an exception
+	private UserDetails user;
 	
-	
-	public Collection<UserDetails> getUserList() {
-		return userList;
+
+	public UserDetails getUser() {
+		return user;
 	}
-	public void setUserList(Collection<UserDetails> userList) {
-		this.userList = userList;
+	public void setUser(UserDetails user) {
+		this.user = user;
 	}
 	public int getVehicleId() {
 		return vehicleId;
