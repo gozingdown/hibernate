@@ -21,5 +21,7 @@
         
         <mapping class="com.zheng.spring.dto.UserDetails"/>
         <mapping class="com.zheng.spring.dto.Vehicle"/>
+        <mapping class="com.zheng.spring.dto.TwoWheeler"/>
+        <mapping class="com.zheng.spring.dto.FourWheeler"/>
     </session-factory> 
 </hibernate-configuration> 
