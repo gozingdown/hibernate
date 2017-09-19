@@ -20,5 +20,6 @@
         <property name="hbm2ddl.auto">create</property> 
         
         <mapping class="com.zheng.spring.dto.UserDetails"/>
+        <mapping class="com.zheng.spring.dto.Vehicle"/>
     </session-factory> 
 </hibernate-configuration> 
