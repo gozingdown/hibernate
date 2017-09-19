@@ -19,8 +19,8 @@ public class HibernateTest {
 		vehicle1.setVehicleName("Car");
 		Vehicle vehicle2 = new Vehicle();
 		vehicle2.setVehicleName("Jeep");
-		vehicle1.setUser(user);
-		vehicle2.setUser(user);
+		vehicle1.getUserList().add(user);
+		vehicle2.getUserList().add(user);
 		user.getVehicles().add(vehicle1);
 		user.getVehicles().add(vehicle2);
 		// SessionFactory is only created once per application (expensive)
