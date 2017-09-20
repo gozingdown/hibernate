@@ -1,7 +1,9 @@
 package com.zheng.spring.hibernate;
 
 import java.util.Date;
+import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -15,6 +17,7 @@ import com.zheng.spring.dto.Vehicle;
 public class HibernateTest {
 
 	public static void main(String[] args) {
+		/** Object status changes:
 		UserDetails user = new UserDetails();
 		user.setUserName("Test User");//transient object
 		
@@ -40,5 +43,17 @@ public class HibernateTest {
 		session.getTransaction().commit();
 		session.close();
 		*/
+		
+		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		
+		Query query = session.createQuery("from UserDetails where userId > 5");
+		List users = query.list();
+		
+		session.getTransaction().commit();
+		session.close();
+		
+		System.out.println("Size of list result = " + users.size());
 	}
 }
