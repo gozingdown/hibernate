@@ -19,6 +19,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
+@org.hibernate.annotations.Entity(selectBeforeUpdate=true)// make update only if something has changed
 @Table(name = "USER_DETAILS") // Entity name is still userdetails, when writing HQL we need to use entity name.
 public class UserDetails {
 
