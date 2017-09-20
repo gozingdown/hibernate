@@ -22,10 +22,10 @@ public class HibernateTest {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-
-		session.save(user);// persistent object
-		user.setUserName("Updated User");
-		user.setUserName("Updated User Again");// this change is also in the database
+		user = (UserDetails)session.get(UserDetails.class, 1);// the user object is persistent, so the updates later on will be monitored by Hibernate
+		//session.save(user);// persistent object
+		user.setUserName("Updated User1");
+		user.setUserName("Updated User Again1");// this change is also in the database
 		// because no matter what change you make before close, the last update before commit will go into the database.
 		session.getTransaction().commit();
 		session.close();// normally in a finally block
