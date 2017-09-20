@@ -28,16 +28,6 @@ public class UserDetails {
 	private int userId;
 	@Column(name = "USER_NAME")
 	private String userName;
-	@OneToMany(cascade=CascadeType.PERSIST)
-	private Collection<Vehicle> vehicles = new ArrayList<>();
-
-	public Collection<Vehicle> getVehicles() {
-		return vehicles;
-	}
-
-	public void setVehicle(Collection<Vehicle> vehicles) {
-		this.vehicles = vehicles;
-	}
 
 	public int getUserId() {
 		return userId;
