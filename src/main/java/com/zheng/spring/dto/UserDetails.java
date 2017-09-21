@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 // we are importing from javax.persistence because we are compliant with JPA standards
 import javax.persistence.Column;
@@ -20,9 +21,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 @Entity
+@Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_ONLY)
 @NamedQuery(name="UserDetails.byId", query="from UserDetails where userId = ?")
-//@NamedNativeQuery(name="UserDetails.byName", query="select * from USER_DETAILS where USER_NAME = ?", resultClass=UserDetails.class)
 @org.hibernate.annotations.Entity(selectBeforeUpdate=true)// make update only if something has changed
 @Table(name = "USER_DETAILS") // Entity name is still userdetails, when writing HQL we need to use entity name.
 public class UserDetails {

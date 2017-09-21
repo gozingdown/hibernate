@@ -44,5 +44,11 @@
 	    <artifactId>postgresql</artifactId>
 	    <version>42.1.4</version>
 	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-ehcache -->
+	<dependency>
+	    <groupId>org.hibernate</groupId>
+	    <artifactId>hibernate-ehcache</artifactId>
+	    <version>5.2.11.Final</version>
+	</dependency>
   </dependencies>
 </project>
