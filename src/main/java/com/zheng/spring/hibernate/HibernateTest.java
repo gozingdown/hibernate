@@ -47,17 +47,24 @@ public class HibernateTest {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
+		String minUserId = "3";
+		String userName = "test";
 		
-		Query query = session.createQuery("select userName from UserDetails");//a list of string will be returned instead of UserDetails
-		query.setFirstResult(2);
-		query.setMaxResults(1);
-		List<String> userNames = (List<String>) query.list();
+//		Query query = session.createQuery(" from UserDetails where userId > ? and userName = ?");
+//		query.setInteger(0, Integer.parseInt(minUserId));
+//		query.setString(1, userName);
+		
+		Query query = session.createQuery(" from UserDetails where userId > :userId and userName = :userName");
+		query.setInteger("userId", Integer.parseInt(minUserId));
+		query.setString("userName", userName);
+		
+		List<UserDetails> users = (List<UserDetails>) query.list();
 		
 		session.getTransaction().commit();
 		session.close();
 		
-		for(String userName: userNames) {
-			System.out.println(userName);
+		for(UserDetails user: users) {
+			System.out.println(user.getUserName());
 		}
 	}
 }
