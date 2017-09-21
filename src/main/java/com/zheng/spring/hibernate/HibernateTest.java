@@ -8,6 +8,9 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Example;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import com.zheng.spring.dto.Address;
@@ -66,11 +69,25 @@ public class HibernateTest {
 //		Query query = session.getNamedQuery("UserDetails.byName");
 //		query.setString(0, "test");
 		
+		//Query By Example:
+		UserDetails exampleUser = new UserDetails();
+		exampleUser.setUserId(3);//Hibernate ignores null-value properties, and primary-key properties, so 3 will be ignored.
+		exampleUser.setUserName("test%");
+		Example example = Example.create(exampleUser).enableLike();//.excludeProperty("userName");
+		
 		Criteria criteria = session.createCriteria(UserDetails.class);//kinda like a where clause
-		criteria.add(Restrictions.eq("userName", "test"))
-				.add(Restrictions.gt("userId", 3))
-				.add(Restrictions.like("userName", "%es%"))
-				.add(Restrictions.or(Restrictions.between("userId", 0, 3), Restrictions.between("userId", 4, 5)));//OR
+//		criteria.add(Restrictions.eq("userName", "test"))
+//				.add(Restrictions.gt("userId", 3))
+//				.add(Restrictions.like("userName", "%es%"))
+//				.add(Restrictions.or(Restrictions.between("userId", 0, 3), Restrictions.between("userId", 4, 5)));//OR
+
+		// Projections
+		//criteria.setProjection(Projections.count("userId")) // if you set the projection, the end result will not be a list of UserDetails any more.
+		
+		// Add Order
+//		criteria.addOrder(Order.desc("userId"));
+		
+		criteria.add(example);
 		
 		List<UserDetails> users = (List<UserDetails>) criteria.list();
 		
@@ -78,7 +95,7 @@ public class HibernateTest {
 		session.close();
 		
 		for(UserDetails user: users) {
-			System.out.println(user.getUserName());
+			System.out.println(user.getUserId() + " | " + user.getUserName());
 		}
 	}
 }
