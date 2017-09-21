@@ -54,9 +54,15 @@ public class HibernateTest {
 //		query.setInteger(0, Integer.parseInt(minUserId));
 //		query.setString(1, userName);
 		
-		Query query = session.createQuery(" from UserDetails where userId > :userId and userName = :userName");
-		query.setInteger("userId", Integer.parseInt(minUserId));
-		query.setString("userName", userName);
+//		Query query = session.createQuery(" from UserDetails where userId > :userId and userName = :userName");
+//		query.setInteger("userId", Integer.parseInt(minUserId));
+//		query.setString("userName", userName)
+		
+//		Query query = session.getNamedQuery("UserDetails.byId");
+//		query.setInteger(0, 2);
+		
+		Query query = session.getNamedQuery("UserDetails.byName");
+		query.setString(0, "test");
 		
 		List<UserDetails> users = (List<UserDetails>) query.list();
 		
