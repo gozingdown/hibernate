@@ -3,10 +3,12 @@ package com.zheng.spring.hibernate;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Restrictions;
 
 import com.zheng.spring.dto.Address;
 import com.zheng.spring.dto.FourWheeler;
@@ -61,10 +63,13 @@ public class HibernateTest {
 //		Query query = session.getNamedQuery("UserDetails.byId");
 //		query.setInteger(0, 2);
 		
-		Query query = session.getNamedQuery("UserDetails.byName");
-		query.setString(0, "test");
+//		Query query = session.getNamedQuery("UserDetails.byName");
+//		query.setString(0, "test");
 		
-		List<UserDetails> users = (List<UserDetails>) query.list();
+		Criteria criteria = session.createCriteria(UserDetails.class);//kinda like a where clause
+		criteria.add(Restrictions.eq("userName", "test"));
+		
+		List<UserDetails> users = (List<UserDetails>) criteria.list();
 		
 		session.getTransaction().commit();
 		session.close();

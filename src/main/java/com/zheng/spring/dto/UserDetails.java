@@ -22,7 +22,7 @@ import javax.persistence.Table;
 
 @Entity
 @NamedQuery(name="UserDetails.byId", query="from UserDetails where userId = ?")
-@NamedNativeQuery(name="UserDetails.byName", query="select * from USER_DETAILS where USER_NAME = ?", resultClass=UserDetails.class)
+//@NamedNativeQuery(name="UserDetails.byName", query="select * from USER_DETAILS where USER_NAME = ?", resultClass=UserDetails.class)
 @org.hibernate.annotations.Entity(selectBeforeUpdate=true)// make update only if something has changed
 @Table(name = "USER_DETAILS") // Entity name is still userdetails, when writing HQL we need to use entity name.
 public class UserDetails {
